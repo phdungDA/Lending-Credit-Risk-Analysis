@@ -11,7 +11,7 @@ End-to-end analysis of a consumer-lending portfolio (2,383 loans, 2016–2019) f
 1. How large is the loan book and how well is capital being disbursed (by product, time, region)?
 2. Where is credit risk concentrated (overdue, bad debt) by product, district and customer group?
 3. Who are the customers (income, occupation, residence, loyalty) and which segments are safe?
-4. Which signals are associated with bad debt, and can a simple model flag risky applicants?
+4. Which signals are associated with bad debt and can a simple model flag risky applicants?
 5. What portfolio and policy changes would reduce risk without cutting volume?
 
 ## Tech stack
@@ -40,7 +40,7 @@ Python (pandas, NumPy, scikit-learn, matplotlib, seaborn) · SQL Server / T-SQL 
 Raw CRM export: 2,383 rows × 49 columns → cleaned: 2,383 rows × 46 columns, 0 duplicate rows.
 
 - Dropped three duplicate money columns; kept requested amount, disbursed amount, remaining principal (cast to integer).
-- `Gender` 0/1 → Male/Female; `Salary` parsed to numeric (text such as "ten thousand", `$` and thousand separators handled); dates parsed with invalid values (e.g. 2023-02-30) → missing.
+- `Gender` 0/1 → Male/Female; `Salary` parsed to numeric (text such as "ten thousand" `$` and thousand separators handled); dates parsed with invalid values (e.g. 2023-02-30) → missing.
 - Birthdays implying age < 18 or > 100 at application time → missing.
 - Impossible values → missing: `LongestOverdue < 0` (49 rows), residence duration `-1`, `NumberOfLoans < 0`; `HasBadDebt` / `HasLatePayment` restricted to {0, 1}.
 - Text columns trimmed, empty strings → missing; high-missing categorical columns filled with `Unknown`. Numeric/date gaps are left missing.
@@ -111,12 +111,12 @@ Target: **customer bad-debt history** (`HasBadDebt`, 10.99% positive) — i.e. w
 
 ![ROC and threshold trade-off](reports/figures/ml_roc_threshold.png)
 
-**Takeaway:** discrimination is weak (AUC ≈ 0.64). Lowering the threshold trades precision for recall (the regressor catches 65% of bad loans while flagging many good ones). Next steps: resampling (SMOTE), customer-level splits, cost-based threshold tuning, and retraining on the current bad-debt status (`Nợ Xấu`) to predict default on Tima's own loans.
+**Takeaway:** discrimination is weak (AUC ≈ 0.64). Lowering the threshold trades precision for recall (the regressor catches 65% of bad loans while flagging many good ones). Next steps: resampling (SMOTE), customer-level splits, cost-based threshold tuning and retraining on the current bad-debt status (`Nợ Xấu`) to predict default on Tima's own loans.
 
 ## 7. Recommendations
 
 - Hard credit-score gate: no limits > ₫500M when score < 600.
-- Require 3–6 months of bank statements for car and SIM-backed loans, and for informal-income applicants.
+- Require 3–6 months of bank statements for car and SIM-backed loans and for informal-income applicants.
 - Expand lending where quality is higher (Ho Chi Minh City); tighten review in Hoàn Kiếm and Hà Đông.
 - Reward repeat borrowers (≥ 3 loans) with preferred rates.
 - Targets: average overdue < 30 days; risk-zone share < 5%; restore disbursement rate to ~90%.
