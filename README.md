@@ -40,7 +40,7 @@ Python (pandas, NumPy, scikit-learn, matplotlib, seaborn) · SQL Server / T-SQL 
 Raw CRM export: 2,383 rows × 49 columns → cleaned: 2,383 rows × 46 columns, 0 duplicate rows.
 
 - Dropped three duplicate money columns; kept requested amount, disbursed amount, remaining principal (cast to integer).
-- `Gender` 0/1 → Male/Female; `Salary` parsed to numeric (text such as "ten thousand" `$` and thousand separators handled); dates parsed with invalid values (e.g. 2023-02-30) → missing.
+- `Gender` 0/1 → Male/Female; `Salary` parsed to numeric (text such as "ten thousand" `$` thousand separators handled); dates parsed with invalid values (e.g. 2023-02-30) → missing.
 - Birthdays implying age < 18 or > 100 at application time → missing.
 - Impossible values → missing: `LongestOverdue < 0` (49 rows), residence duration `-1`, `NumberOfLoans < 0`; `HasBadDebt` / `HasLatePayment` restricted to {0, 1}.
 - Text columns trimmed, empty strings → missing; high-missing categorical columns filled with `Unknown`. Numeric/date gaps are left missing.
