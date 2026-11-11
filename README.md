@@ -2,8 +2,9 @@
 
 End-to-end analysis of a consumer-lending portfolio (2,383 loans, 2016–2019) from a Vietnamese P2P/pawn-loan platform: data cleaning → SQL exploration → Power BI dashboard → bad-debt diagnostics → bad-debt prediction baseline → business recommendations.
 
-> Final project, Data Analysis course at Rikkei Academy (Group 1).
-> **My role:** _[fill in: e.g. data cleaning, SQL queries, Power BI pages, diagnostics, ML notebook]_
+> Final project, Data Analysis course at Rikkei Academy/HUST.
+
+> **My role:**  data cleaning, SQL queries, Power BI pages, ML notebook
 
 ## Business questions
 
