@@ -1,0 +1,9 @@
+# data with PII
+data/*.csv
+!data/sample/*.csv
+*.pbix
+# python / jupyter
+__pycache__/
+.ipynb_checkpoints/
+.venv/
+.DS_Store
